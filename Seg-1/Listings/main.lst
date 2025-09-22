@@ -1,0 +1,75 @@
+C51 COMPILER V9.57.0.0   MAIN                                                              09/11/2025 18:51:53 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          unsigned char Seg_Dei[] = {0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f};
+   4          
+   5          void Delay(unsigned char xms)   //@11.0592MHz
+   6          {
+   7   1              unsigned char data i, j;
+   8   1              while(xms--)
+   9   1              {
+  10   2                      i = 2;
+  11   2                      j = 199;
+  12   2                      do
+  13   2                      {
+  14   3                              while (--j);
+  15   3                      } while (--i);
+  16   2              }
+  17   1      }
+  18          
+  19          
+  20          void Seg_Proc(unsigned char wei,dei)
+  21          {
+  22   1              switch(wei)
+  23   1              {
+  24   2                      case 1: P2_4 = 1;P2_3 = 1;P2_2 = 1;break;
+  25   2                      case 2: P2_4 = 1;P2_3 = 1;P2_2 = 0;break;
+  26   2                      case 3: P2_4 = 1;P2_3 = 0;P2_2 = 1;break;
+  27   2                      case 4: P2_4 = 1;P2_3 = 0;P2_2 = 0;break;
+  28   2                      case 5: P2_4 = 0;P2_3 = 1;P2_2 = 1;break;
+  29   2                      case 6: P2_4 = 0;P2_3 = 1;P2_2 = 0;break;
+  30   2                      case 7: P2_4 = 0;P2_3 = 0;P2_2 = 1;break;
+  31   2                      case 8: P2_4 = 0;P2_3 = 0;P2_2 = 0;break;
+  32   2              }
+  33   1              P0 = Seg_Dei[dei];
+  34   1              Delay(1);
+  35   1              P0 = 0x00;
+  36   1      }
+  37          
+  38          int main()
+  39          {
+  40   1              while(1)
+  41   1              {
+  42   2                      Seg_Proc(1,1);
+  43   2      
+  44   2                      Seg_Proc(2,4);
+  45   2      
+  46   2                      Seg_Proc(4,5);
+  47   2      
+  48   2              }
+  49   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    149    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.57.0.0   MAIN                                                              09/11/2025 18:51:53 PAGE 2   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
